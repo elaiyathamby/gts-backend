@@ -1,7 +1,7 @@
 package ch.zhaw.sml.iwi.meng.leantodo.entity;
 
 public enum StatusEnum {
-    PRIVATE, BUSINESS, OTHERS;
+    OPEN, INPROGRESS, DONE;
 
     @Override
     public String toString() {

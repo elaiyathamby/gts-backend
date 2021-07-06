@@ -1,5 +1,9 @@
 package ch.zhaw.sml.iwi.meng.leantodo;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,8 +15,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import ch.zhaw.sml.iwi.meng.leantodo.entity.CategoryEnum;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.Role;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.RoleRepository;
+import ch.zhaw.sml.iwi.meng.leantodo.entity.StatusEnum;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.ToDo;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.ToDoRepository;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.User;
@@ -66,13 +72,20 @@ public class LeanToDo implements CommandLineRunner {
         userRepository.save(u);
 
         ToDo toDo = new ToDo();
+
         toDo.setTitle("Finish This app");
         toDo.setOwner("user");
+        toDo.setCategory(CategoryEnum.PRIVATE);
+        toDo.setStatus(StatusEnum.OPEN);
         toDoRepository.save(toDo);
 
-        toDo = new ToDo();
+        toDo = new ToDo(); 
+        //GregorianCalendar date = new GregorianCalendar(5021, 7, 5);
         toDo.setTitle("Reply to student");
         toDo.setOwner("user");
+        toDo.setCategory(CategoryEnum.PRIVATE);
+        toDo.setStatus(StatusEnum.OPEN);
+        toDo.setDue(new Date((new Date()).getTime()-1000*24*3600));
         toDoRepository.save(toDo);
     }
 }

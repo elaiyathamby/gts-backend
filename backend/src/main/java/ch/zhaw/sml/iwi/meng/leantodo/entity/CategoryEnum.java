@@ -1,7 +1,7 @@
 package ch.zhaw.sml.iwi.meng.leantodo.entity;
 
 public enum CategoryEnum {
-    OPEN, INPROGRESS, DONE;
+    PRIVATE, BUSINESS, OTHERS;
 
     @Override
     public String toString() {

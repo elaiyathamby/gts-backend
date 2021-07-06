@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,6 +29,12 @@ public class ToDoEndpoint {
         return  toDoController.listAllToDos(principal.getName());        
     }
 
+    @RequestMapping(path = "/api/todo/today", method = RequestMethod.GET)
+    @PreAuthorize("isAuthenticated() AND hasRole('USER')")
+    public List<ToDo> toDoToday(Principal principal) {
+        return  toDoController.listAllToDosDueToday(principal.getName());        
+    }
+
     @RequestMapping(path = "/api/todo", method = RequestMethod.POST)
     @PreAuthorize("isAuthenticated() AND hasRole('USER')")
     public void addToDo(@RequestBody ToDo newToDo, Principal principal) {
@@ -41,9 +48,10 @@ public class ToDoEndpoint {
     }
 
     
-    @RequestMapping(path = "/api/todo/{titel}/{status/{category}", method = RequestMethod.GET)
+    @RequestMapping(path = "/api/todo/filter", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated() AND hasRole('USER')")
-    public void filterToDo(@RequestParam(name="titel") String title, @RequestParam(name="status") StatusEnum status,@RequestParam(name="category") CategoryEnum category, Principal principal) {
-        toDoController.listFilterToDos(principal.getName(), title, status, category);
+    public void filterToDo(@RequestParam(name="titel",required = false) String title, @RequestParam(name="status",required = false) StatusEnum status,@RequestParam(name="category",required = false) CategoryEnum category, Principal principal) {
+        toDoController.listFilterToDos(principal.getName(), title,status,category);
+        //System.out.println("\n---------------------------"+title+" "+status+" "+category);
     }
 }

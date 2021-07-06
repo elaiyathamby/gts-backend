@@ -34,11 +34,7 @@ public class ToDo {
     @Enumerated(EnumType.STRING)
     private CategoryEnum category;
         
-    
 
-
-    private boolean archived = false;
-    private boolean done = false;
 
 
     @JsonIgnore
@@ -170,35 +166,6 @@ public class ToDo {
      */
     public void setCategory(CategoryEnum category) {
         this.category = category;
-    }
-
-
-    /**
-     * @return boolean return the archived
-     */
-    public boolean isArchived() {
-        return archived;
-    }
-
-    /**
-     * @param archived the archived to set
-     */
-    public void setArchived(boolean archived) {
-        this.archived = archived;
-    }
-
-    /**
-     * @return boolean return the done
-     */
-    public boolean isDone() {
-        return done;
-    }
-
-    /**
-     * @param done the done to set
-     */
-    public void setDone(boolean done) {
-        this.done = done;
     }
 
 }

@@ -1,5 +1,6 @@
 package ch.zhaw.sml.iwi.meng.leantodo.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,14 @@ public class ToDoController {
     public List<ToDo> listAllToDos(String loginName) {
         return toDoRepository.findAllButArchivedByOwner(loginName);
     }
-    public List<ToDo> listFilterToDos(String loginName, String title, StatusEnum status, CategoryEnum category) {
-        return toDoRepository.findFilterToDo(loginName,title,status,category);
+
+    public List<ToDo> listAllToDosDueToday(String loginName) {
+        return toDoRepository.findAllDueToday(loginName, new Date());
+    }
+
+    public List<ToDo> listFilterToDos(String loginName, String title,StatusEnum status, CategoryEnum category) {
+
+        return toDoRepository.filterByTitle(loginName,title); 
     }
 
     public void persistToDo(ToDo newToDo, String owner) {
