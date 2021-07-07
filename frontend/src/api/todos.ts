@@ -14,6 +14,30 @@ export async function getAllToDos(): Promise<ToDo[]>   {
     }
 }
 
+export async function getFilterToDos(query: string): Promise<ToDo[]>   { 
+    const config = {        
+        withCredentials: true
+    }
+    try {
+        const response = await axios.get(API_ROOT + '/api/todo/filter?'+query, config);
+        return response.data;
+    } catch (error) {
+        return error;   
+    }
+}
+
+export async function getTodayToDos(): Promise<ToDo[]>   { 
+    const config = {        
+        withCredentials: true
+    }
+    try {
+        const response = await axios.get(API_ROOT + '/api/todo/today', config);
+        return response.data;
+    } catch (error) {
+        return error;   
+    }
+}
+
 export async function addNewToDo(newToDo: ToDo): Promise<any>   {
     const config = {        
         withCredentials: true

@@ -17,7 +17,7 @@ public interface ToDoRepository extends JpaRepository<ToDo,Long> {
     @Query("SELECT t FROM ToDo as t WHERE t.owner = ?1 AND t.status != 'DONE' AND t.due <= ?2")
     public List<ToDo> findAllDueToday(String owner,Date date);
 
-    @Query("SELECT t FROM ToDo as t WHERE t.owner = ?1 AND t.title LIKE ?2")
+    @Query("SELECT t FROM ToDo as t WHERE t.owner = ?1 AND t.title LIKE %?2%")
     public List<ToDo> filterByTitle(String owner,String title);
 
     @Query("SELECT t FROM ToDo as t WHERE t.owner = ?1 AND t.status = ?2")
@@ -26,19 +26,16 @@ public interface ToDoRepository extends JpaRepository<ToDo,Long> {
     @Query("SELECT t FROM ToDo as t WHERE t.owner = ?1 AND t.category = ?2")
     public List<ToDo> filterByCategory(String owner,CategoryEnum category);
 
-    @Query("SELECT t FROM ToDo as t WHERE t.owner = ?1 AND t.title LIKE ?2 AND t.status = ?3")
+    @Query("SELECT t FROM ToDo as t WHERE t.owner = ?1 AND t.title LIKE %?2% AND t.status = ?3")
     public List<ToDo> filterByTitleAndStatus(String owner,String title,StatusEnum status);
 
-    @Query("SELECT t FROM ToDo as t WHERE t.owner = ?1 AND t.title LIKE ?2 AND t.category = ?3")
+    @Query("SELECT t FROM ToDo as t WHERE t.owner = ?1 AND t.title LIKE %?2% AND t.category = ?3")
     public List<ToDo> filterByTitleAndCategory(String owner,String title,CategoryEnum category);
     
-    @Query("SELECT t FROM ToDo as t WHERE t.owner = ?1 AND t.status LIKE ?2 AND t.category = ?3")
+    @Query("SELECT t FROM ToDo as t WHERE t.owner = ?1 AND t.status = ?2 AND t.category = ?3")
     public List<ToDo> filterByStatusAndCategory(String owner,StatusEnum status,CategoryEnum category);
 
-    @Query("SELECT t FROM ToDo as t WHERE t.owner = ?1 AND t.title LIKE ?2 AND t.status = ?3 AND t.category = ?4")
+    @Query("SELECT t FROM ToDo as t WHERE t.owner = ?1 AND t.title LIKE %?2% AND t.status = ?3 AND t.category = ?4")
     public List<ToDo> filterByTitleAndStatusAndCategory(String owner,String title,StatusEnum status,CategoryEnum category);
 
-    
-    
-    
 }

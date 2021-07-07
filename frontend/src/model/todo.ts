@@ -1,6 +1,10 @@
 export interface ToDo {
     id?: number;
     title?: string;
-    archived?: boolean;
-    done?: boolean;
+    description?: string;
+    open?: string;
+    due?: string;
+    reflexion?: string;
+    status?: string;
+    category?: string;
 }

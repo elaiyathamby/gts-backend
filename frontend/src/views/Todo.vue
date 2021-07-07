@@ -84,9 +84,9 @@ export default {
     IonInput,
   },
   setup() {
-    const { newTodo, todos, getTodos, addTodo, finishTodo, archiveTodo } = useTodos();
+    const { newTodo, todos, getTodos, addTodo } = useTodos();
 
-    return { newTodo, todos, getTodos, addTodo, finishTodo, archiveTodo };
+    return { newTodo, todos, getTodos, addTodo};
   },
 };
 </script>

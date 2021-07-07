@@ -50,8 +50,7 @@ public class ToDoEndpoint {
     
     @RequestMapping(path = "/api/todo/filter", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated() AND hasRole('USER')")
-    public void filterToDo(@RequestParam(name="titel",required = false) String title, @RequestParam(name="status",required = false) StatusEnum status,@RequestParam(name="category",required = false) CategoryEnum category, Principal principal) {
-        toDoController.listFilterToDos(principal.getName(), title,status,category);
-        //System.out.println("\n---------------------------"+title+" "+status+" "+category);
+    public List<ToDo> filterToDo(@RequestParam(name="title",required = false) String title, @RequestParam(name="status",required = false) StatusEnum status,@RequestParam(name="category",required = false) CategoryEnum category, Principal principal) {
+        return toDoController.listFilterToDos(principal.getName(), title,status,category);
     }
 }

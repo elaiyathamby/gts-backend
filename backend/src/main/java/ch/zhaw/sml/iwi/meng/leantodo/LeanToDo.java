@@ -31,7 +31,7 @@ public class LeanToDo implements CommandLineRunner {
 
     public static void main(String[] args) {
         SpringApplication.run(LeanToDo.class, args);
-        
+
     }
 
     @Autowired
@@ -40,7 +40,6 @@ public class LeanToDo implements CommandLineRunner {
     @Autowired
     private RoleRepository roleRepository;
 
-    
     @Autowired
     private ToDoRepository toDoRepository;
 
@@ -50,12 +49,12 @@ public class LeanToDo implements CommandLineRunner {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                    // This is only really relevant for development, where we have different servers for frontend and backend
-                    .allowedOrigins("http://localhost:8100")
-                    .allowedMethods("GET", "PUT", "POST", "DELETE")
-                    // AllowCredentials is necessary, as it sets 'Access-Control-Allow-Credentials'. 
-                    // Otherwise Angular's HttpClient will not pass the Cookie back.
-                    .allowCredentials(true);
+                        // This is only really relevant for development, where we have different servers
+                        // for frontend and backend
+                        .allowedOrigins("http://localhost:8100").allowedMethods("GET", "PUT", "POST", "DELETE")
+                        // AllowCredentials is necessary, as it sets 'Access-Control-Allow-Credentials'.
+                        // Otherwise Angular's HttpClient will not pass the Cookie back.
+                        .allowCredentials(true);
             }
         };
     }
@@ -73,19 +72,38 @@ public class LeanToDo implements CommandLineRunner {
 
         ToDo toDo = new ToDo();
 
-        toDo.setTitle("Finish This app");
+        toDo.setTitle("note TodayFinish This app");
         toDo.setOwner("user");
         toDo.setCategory(CategoryEnum.PRIVATE);
         toDo.setStatus(StatusEnum.OPEN);
+        toDo.setDescription("bibibu");
+        toDo.setDue(new Date((new Date()).getTime()+2*1000*24*3600));
+        toDo.setOpen(new Date((new Date()).getTime()-5*1000*24*3600));
         toDoRepository.save(toDo);
 
         toDo = new ToDo(); 
-        //GregorianCalendar date = new GregorianCalendar(5021, 7, 5);
-        toDo.setTitle("Reply to student");
+        toDo.setTitle("yesterdayReply to student");
         toDo.setOwner("user");
         toDo.setCategory(CategoryEnum.PRIVATE);
         toDo.setStatus(StatusEnum.OPEN);
+        toDo.setDescription("bibibu");
+        toDo.setOpen(new Date((new Date()).getTime()-5*1000*24*3600));
         toDo.setDue(new Date((new Date()).getTime()-1000*24*3600));
         toDoRepository.save(toDo);
+        
+        CategoryEnum category[] = {CategoryEnum.PRIVATE,CategoryEnum.BUSINESS}; 
+        StatusEnum status[] = {StatusEnum.OPEN,StatusEnum.INPROGRESS}; 
+
+        for(int i = 1;i<=10;i++){
+            toDo = new ToDo(); 
+            toDo.setTitle("Finish This app "+i);
+            toDo.setOwner("user");
+            toDo.setCategory(category[i%2]);
+            toDo.setStatus(status[i%2]);
+            toDo.setDescription("bibibu");
+            toDo.setDue(new Date((new Date()).getTime()));
+            toDo.setOpen(new Date((new Date()).getTime()-i*1000*24*3600));
+            toDoRepository.save(toDo);
+        }
     }
 }
