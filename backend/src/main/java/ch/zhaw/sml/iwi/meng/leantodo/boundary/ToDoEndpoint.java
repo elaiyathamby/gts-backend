@@ -26,13 +26,19 @@ public class ToDoEndpoint {
     @RequestMapping(path = "/api/todo", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated() AND hasRole('USER')")
     public List<ToDo> toDo(Principal principal) {
-        return  toDoController.listAllToDos(principal.getName());        
+        return toDoController.listAllToDos(principal.getName());
+    }
+
+    @RequestMapping(path = "/api/todo/single", method = RequestMethod.GET)
+    @PreAuthorize("isAuthenticated() AND hasRole('USER')")
+    public ToDo toDoById(Principal principal, @RequestParam(name = "id") Long id) {
+        return toDoController.getToDoById(principal.getName(), id);
     }
 
     @RequestMapping(path = "/api/todo/today", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated() AND hasRole('USER')")
     public List<ToDo> toDoToday(Principal principal) {
-        return  toDoController.listAllToDosDueToday(principal.getName());        
+        return toDoController.listAllToDosDueToday(principal.getName());
     }
 
     @RequestMapping(path = "/api/todo", method = RequestMethod.POST)
@@ -40,17 +46,18 @@ public class ToDoEndpoint {
     public void addToDo(@RequestBody ToDo newToDo, Principal principal) {
         toDoController.persistToDo(newToDo, principal.getName());
     }
-    
+
     @RequestMapping(path = "/api/todo", method = RequestMethod.PUT)
     @PreAuthorize("isAuthenticated() AND hasRole('USER')")
     public void updateToDo(@RequestBody ToDo toDo, Principal principal) {
         toDoController.updateToDo(toDo, principal.getName());
     }
 
-    
     @RequestMapping(path = "/api/todo/filter", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated() AND hasRole('USER')")
-    public List<ToDo> filterToDo(@RequestParam(name="title",required = false) String title, @RequestParam(name="status",required = false) StatusEnum status,@RequestParam(name="category",required = false) CategoryEnum category, Principal principal) {
-        return toDoController.listFilterToDos(principal.getName(), title,status,category);
+    public List<ToDo> filterToDo(@RequestParam(name = "title", required = false) String title,
+            @RequestParam(name = "status", required = false) StatusEnum status,
+            @RequestParam(name = "category", required = false) CategoryEnum category, Principal principal) {
+        return toDoController.listFilterToDos(principal.getName(), title, status, category);
     }
 }

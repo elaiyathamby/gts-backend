@@ -25,6 +25,10 @@ public class ToDoController {
         return toDoRepository.findAllDueToday(loginName, new Date());
     }
 
+    public ToDo getToDoById(String loginName, Long id) {
+        return toDoRepository.findByIdAndOwner(loginName, id);
+    }
+
     public List<ToDo> listFilterToDos(String loginName, String title, StatusEnum status, CategoryEnum category) {
         if (title != null && status != null && category != null) {
             return toDoRepository.filterByTitleAndStatusAndCategory(loginName, title, status, category);
@@ -52,6 +56,8 @@ public class ToDoController {
     public void persistToDo(ToDo newToDo, String owner) {
         newToDo.setOwner(owner);
         newToDo.setId(null);
+        newToDo.setOpen(new Date());
+        newToDo.setStatus(StatusEnum.OPEN);
         toDoRepository.save(newToDo);
     }
 
