@@ -93,14 +93,27 @@ public class LeanToDo implements CommandLineRunner {
         
         CategoryEnum category[] = {CategoryEnum.PRIVATE,CategoryEnum.BUSINESS}; 
         StatusEnum status[] = {StatusEnum.OPEN,StatusEnum.INPROGRESS}; 
+        String title[] = {"","Einkaufen","Fitnessabo lösen","Fitnessabo kündigen","Rennen","Lernen","Geburtstag feiern","Bier kaltstellen","Ferien Buchen","EM Final schauen","Snacks kaufen"};
 
         for(int i = 1;i<=10;i++){
             toDo = new ToDo(); 
-            toDo.setTitle("Finish This app "+i);
+            toDo.setTitle(title[i]);
             toDo.setOwner("user");
             toDo.setCategory(category[i%2]);
             toDo.setStatus(status[i%2]);
-            toDo.setDescription("bibibu");
+            toDo.setDescription(title[i]);
+            toDo.setDue(new Date((new Date()).getTime()-i*1000*24*3600));
+            toDo.setOpen(new Date((new Date()).getTime()-i*1000*24*3600));
+            toDoRepository.save(toDo);
+        }
+
+        for(int i = 1;i<=5;i++){
+            toDo = new ToDo(); 
+            toDo.setTitle(title[i]);
+            toDo.setOwner("user");
+            toDo.setCategory(category[i%2]);
+            toDo.setStatus(status[i%2]);
+            toDo.setDescription("Beschreibung "+title[i]);
             toDo.setDue(new Date((new Date()).getTime()));
             toDo.setOpen(new Date((new Date()).getTime()-i*1000*24*3600));
             toDoRepository.save(toDo);
