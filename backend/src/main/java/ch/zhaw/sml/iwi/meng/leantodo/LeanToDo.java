@@ -72,17 +72,17 @@ public class LeanToDo implements CommandLineRunner {
 
         ToDo toDo = new ToDo();
 
-        toDo.setTitle("note TodayFinish This app");
+        toDo.setTitle("Take Viedeo");
         toDo.setOwner("user");
         toDo.setCategory(CategoryEnum.PRIVATE);
         toDo.setStatus(StatusEnum.OPEN);
-        toDo.setDescription("bibibu");
+        toDo.setDescription("Screencast");
         toDo.setDue(new Date((new Date()).getTime()+2*1000*24*3600));
         toDo.setOpen(new Date((new Date()).getTime()-5*1000*24*3600));
         toDoRepository.save(toDo);
 
         toDo = new ToDo(); 
-        toDo.setTitle("yesterdayReply to student");
+        toDo.setTitle("Reply to student");
         toDo.setOwner("user");
         toDo.setCategory(CategoryEnum.PRIVATE);
         toDo.setStatus(StatusEnum.OPEN);
